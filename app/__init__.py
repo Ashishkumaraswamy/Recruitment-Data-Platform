@@ -3,10 +3,10 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
 
 load_dotenv()  # Load environment variables
-
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
