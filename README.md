@@ -3,7 +3,7 @@ Flask based backend application for providing endpoints to a Recruitment Data Pl
 
 # How to Set up on Local
 
- Markup : 1. A numbered list
+1. A numbered list
               1. A nested numbered list
               2. Which is numbered
           2. Which is numbered
