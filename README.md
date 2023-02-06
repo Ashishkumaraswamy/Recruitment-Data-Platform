@@ -3,6 +3,11 @@ Flask based backend application for providing endpoints to a Recruitment Data Pl
 
 # How to Set up on Local
 
+ Markup : 1. A numbered list
+              1. A nested numbered list
+              2. Which is numbered
+          2. Which is numbered
+
  Markup : 1.Clone this repository to your local machine
           2.Go to MySQl Workbench or any other RDBMS and create a database named RDP
           3.Add the tables with the schemas mentiioned below
