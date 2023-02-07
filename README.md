@@ -72,12 +72,12 @@ Payload
 Payload
 ```
 {
-    "username":"ashish1",
-    "password":"sabash123",
-    "emailId":"ashish.kumaraswamy@outlook.com",
+    "username":"<usename>",
+    "password":"<password>",
+    "emailId":"<emailid>",
     "divisionId":1,
-    "firstName":"Ashish",
-    "lastName":"K"
+    "firstName":"<first_name>",
+    "lastName":"<last_name>"
 }
 ```
 3. POST http://127.0.0.1:8800/users/login (Add a division) <br/>
