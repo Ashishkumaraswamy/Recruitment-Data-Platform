@@ -7,9 +7,9 @@ class Division(db.Model):
     __table_args__ = {'extend_existing': True}
 
     divisionId = db.Column(db.Integer, primary_key=True)
-    divisionName = db.Column(db.String(45))
+    divisionName = db.Column(db.String(45), unique=True)
     technical = db.Column(db.Boolean)
-    divisionCode = db.Column(db.String(50))
+    divisionCode = db.Column(db.String(50), unique=True)
 
     def __init__(self, divisionName, technical, code):
         self.divisionName = divisionName
@@ -25,7 +25,7 @@ class Users(db.Model):
     __table_args__ = {'extend_existing': True}
 
     userId = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(45))
+    username = db.Column(db.String(45), unique=True)
     password = db.Column(db.String(200))
     emailId = db.Column(db.String(100))
     divisionId = db.Column(db.Integer, db.ForeignKey('Division.divisionId'))

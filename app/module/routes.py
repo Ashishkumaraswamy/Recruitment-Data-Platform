@@ -39,8 +39,7 @@ def token_required(f):
 # --------------------- DIVISIONS ENDPOINTS -------------------------
 
 @app.route("/divisions", methods=['GET'])
-@token_required
-def getDivisions(current_user):
+def getDivisions():
     all_divisions = Division.query.all()
     results = divisions_schema.dump(all_divisions)
     return make_response(jsonify(results),
@@ -48,8 +47,7 @@ def getDivisions(current_user):
 
 
 @app.route("/divisions/<dcode>", methods=['GET'])
-@token_required
-def getDivisionByCode(current_user, dcode):
+def getDivisionByCode(dcode):
     division = Division.query.filter(Division.divisionCode == dcode).first()
     if not division:
         return response("Invalid Division Code Specified!", HttpStatus.INTERNAL_SERVER_ERROR)
@@ -58,8 +56,7 @@ def getDivisionByCode(current_user, dcode):
 
 
 @app.route("/divisions/add", methods=['POST'])
-@token_required
-def addDivision(current_user):
+def addDivision():
     divisionName = request.json.get('divisionName')
     technical = request.json.get('technical')
     divisionCode = request.json.get('divisionCode')
@@ -74,7 +71,7 @@ def addDivision(current_user):
 
 
 @app.route("/divisions/update/<dcode>", methods=['PUT'])
-def updateDivision(current_user, dcode):
+def updateDivision(dcode):
     division = Division.query.filter(Division.divisionCode == dcode).first()
     divisionName = request.json.get('divisionName')
     divisionCode = request.json.get('divisionCode')
@@ -92,7 +89,7 @@ def updateDivision(current_user, dcode):
 
 
 @app.route("/divisions/delete/<dcode>", methods=['DELETE'])
-def deleteDivision(current_user, dcode):
+def deleteDivision(dcode):
     division = Division.query.filter(Division.divisionCode == dcode).first()
     if not division:
         return response("Invalid Division Code Specified", HttpStatus.INTERNAL_SERVER_ERROR)
@@ -102,9 +99,13 @@ def deleteDivision(current_user, dcode):
                          HttpStatus.OK)
 
 # ---------------------- USER ENDPOINTS -----------------------
+@app.route("/users", methods=['GET'])
+@token_required
+def getUsers(current_user):
+    users = Users.query.all()
+    return make_response(users_schema.jsonify(users), HttpStatus.OK)
 
-
-@app.route("/register", methods=['POST'])
+@app.route("/users/register", methods=['POST'])
 def registerUser():
     username = request.json.get('username')
     password = request.json.get('password')
@@ -125,15 +126,7 @@ def registerUser():
     except Exception as e:
         return response("Invalid Input Payload Supplied", HttpStatus.INTERNAL_SERVER_ERROR)
 
-
-@app.route("/users", methods=['GET'])
-@token_required
-def getUsers(current_user):
-    users = Users.query.all()
-    return make_response(users_schema.jsonify(users), HttpStatus.OK)
-
-
-@app.route("/login", methods=['POST'])
+@app.route("/users/login", methods=['POST'])
 def loginUser():
     username = request.json.get('username')
     user = Users.query.filter(Users.username == username).first()
@@ -165,10 +158,18 @@ def updateUser(current_user, username):
     elif current_user.userId != user.userId:
         return response('User not Authorized to update Information', HttpStatus.UNAUTHORIZED)
     else:
+        username = request.json.get('username')
         emailId = request.json.get('emailId')
         divisionId = request.json.get('divisionId')
+        firstName = request.json.get('firstName')
+        lastName = request.json.get('lastName')
+
+        user.username = username
+        user.firstName = firstName
+        user.lastName = lastName
         user.emailId = emailId
         user.divisionId = divisionId
+
         db.session.commit()
         return response("User Details Updated",
                         HttpStatus.OK)
@@ -192,8 +193,7 @@ def deleteUser(current_user, username):
 
 
 @app.route("/jobs/add", methods=['POST'])
-@token_required
-def addJobs(current_user):
+def addJobs():
     jobTitle = request.json.get('jobTitle')
     postedBy = request.json.get('postedBy')
     isOpen = True
@@ -201,7 +201,7 @@ def addJobs(current_user):
     requirements = request.json.get('requirements')
     salary = int(request.json.get('salary'))
     lastDateToApply = request.json.get('lastDateToApply')
-    divisionId = request.json.get('division')
+    divisionId = request.json.get('divisionId')
 
     job = Jobs(jobTitle, postedBy, isOpen, jobDescription,
                requirements, salary, lastDateToApply, divisionId)
@@ -249,10 +249,24 @@ def updateJobs(current_user, jobId):
         return response('User is Not Authorized to delete this job',
                         HttpStatus.UNAUTHORIZED)
     else:
-        emailId = request.json.get('emailId')
+        jobTitle = request.json.get('jobTitle')
+        postedBy = request.json.get('postedBy')
+        isOpen = True
+        jobDescription = request.json.get('jobDescription')
+        requirements = request.json.get('requirements')
+        salary = int(request.json.get('salary'))
+        lastDateToApply = request.json.get('lastDateToApply')
         divisionId = request.json.get('divisionId')
-        job.emailId = emailId
+
+        job.jobTitle = jobTitle
+        job.postedBy = postedBy
+        job.isOpen = isOpen
+        job.jobDescription = jobDescription
+        job.requirements = requirements
+        job.salary = salary
+        job.lastDateToApply = lastDateToApply
         job.divisionId = divisionId
+
         db.session.commit()
         return response("Job Details Updated", HttpStatus.OK)
 
