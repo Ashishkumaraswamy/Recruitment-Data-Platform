@@ -169,7 +169,7 @@ Payload
 
 ![add jobs](https://user-images.githubusercontent.com/64360092/217299654-7b4775c4-d0df-426e-83f1-baa8a1ca2698.png)
 
-4.
+4. Deleting Jobs
 <br/> Delete Jobs Unuathorized (ie. trying to delete jobs posted by other users)
 
 ![unauthorized delete](https://user-images.githubusercontent.com/64360092/217299844-f7ab09c0-4b99-4afb-95be-1b4845985da6.png)
