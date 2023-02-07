@@ -1,7 +1,11 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 class Division(db.Model):
+    __tablename__ = 'Division'
+    __table_args__ = {'extend_existing': True}
+
     divisionId = db.Column(db.Integer, primary_key=True)
     divisionName = db.Column(db.String(45))
     technical = db.Column(db.Boolean)
@@ -17,11 +21,14 @@ class Division(db.Model):
 
 
 class Users(db.Model):
+    __tablename__ = 'Users'
+    __table_args__ = {'extend_existing': True}
+
     userId = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(45))
     password = db.Column(db.String(200))
     emailId = db.Column(db.String(100))
-    divisionId = db.Column(db.Integer)
+    divisionId = db.Column(db.Integer, db.ForeignKey('Division.divisionId'))
     firstName = db.Column(db.String(100))
     lastName = db.Column(db.String(100))
 
@@ -35,15 +42,18 @@ class Users(db.Model):
 
 
 class Jobs(db.Model):
+    __tablename__ = 'Jobs'
+    __table_args__ = {'extend_existing': True}
+
     jobId = db.Column(db.Integer, primary_key=True)
     jobTitle = db.Column(db.String(100))
-    postedBy = db.Column(db.Integer)
+    postedBy = db.Column(db.Integer, db.ForeignKey('Users.userId'))
     isOpen = db.Column(db.Boolean)
     jobDescription = db.Column(db.String(10000))
     requirements = db.Column(db.String(1000))
     salary = db.Column(db.Integer)
     lastDateToApply = db.Column(db.Date)
-    divisionId = db.Column(db.Integer)
+    divisionId = db.Column(db.Integer, db.ForeignKey('Division.divisionId'))
 
     def __init__(self, jobTitle, postedBy, isOpen, jobDescription, requirements, salary, lastDateToApply, divisionId):
         self.jobTitle = jobTitle
