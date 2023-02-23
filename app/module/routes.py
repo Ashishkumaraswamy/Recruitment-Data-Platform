@@ -1,4 +1,4 @@
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, render_template
 from app import app
 from .models import *
 from .schema import *
@@ -35,7 +35,11 @@ def token_required(f):
 
     return decorated
 
-
+# --------------------- HOME PAGE -------------------------
+@app.route("/")
+def home():
+    return render_template('home.html')
+    
 # --------------------- DIVISIONS ENDPOINTS -------------------------
 
 @app.route("/divisions", methods=['GET'])
