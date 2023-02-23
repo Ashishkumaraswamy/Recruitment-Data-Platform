@@ -1,6 +1,8 @@
 # Recruitment-Data-Platform
 Flask based backend application for providing endpoints to a Recruitment Data Platform
 
+#### Deployed Link : http://ec2-52-196-232-247.ap-northeast-1.compute.amazonaws.com:8801/
+
 # Team Members:
 
 ```
