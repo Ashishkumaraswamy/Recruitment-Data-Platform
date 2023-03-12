@@ -26,10 +26,12 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          python run.py
       
       - name: Install dependencies
         run: pip install -r requirements.txt
+        
+      - name: Run app
+        run: python run.py
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
