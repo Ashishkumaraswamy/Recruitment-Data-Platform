@@ -1,19 +1,18 @@
 import os
 from flask import Flask
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
 from .module.models import *
 
 # Load environment variables
-dotenv_path = os.path.dirname(os.path.abspath(__file__))+'\.env'  
-load_dotenv(dotenv_path)  
+dotenv_path = os.path.dirname(os.path.abspath(__file__))+'\.env'
+load_dotenv(dotenv_path)
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
-app = Flask(__name__, template_folder='../templates', static_folder='../static')
+app = Flask(__name__, template_folder='../templates',
+            static_folder='../static')
 # CORS(app)
 
 # JWT

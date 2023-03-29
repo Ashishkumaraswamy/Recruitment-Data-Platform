@@ -99,11 +99,14 @@ def deleteDivision(dcode):
                          HttpStatus.OK)
 
 # ---------------------- USER ENDPOINTS -----------------------
+
+
 @app.route("/users", methods=['GET'])
 @token_required
 def getUsers(current_user):
     users = Users.query.all()
     return make_response(users_schema.jsonify(users), HttpStatus.OK)
+
 
 @app.route("/users/register", methods=['POST'])
 def registerUser():
@@ -125,6 +128,7 @@ def registerUser():
         )
     except Exception as e:
         return response("Invalid Input Payload Supplied", HttpStatus.INTERNAL_SERVER_ERROR)
+
 
 @app.route("/users/login", methods=['POST'])
 def loginUser():
