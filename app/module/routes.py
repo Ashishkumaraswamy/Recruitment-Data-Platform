@@ -14,33 +14,36 @@ from functools import wraps
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = None
-        # jwt is passed in the request header
-        if 'auth-token' in request.cookies:
-            token = request.cookies['auth-token']
-        # return 401 if token is not passed
-        if not token:
-            return response('Token is missing !!',
-                            HttpStatus.UNAUTHORIZED)
-        try:
-            # decoding the payload to fetch the stored details
-            data = jwt.decode(
-                token, app.config['SECRET_KEY'], algorithms=["HS256"])
-            current_user = Users.query.filter_by(userId=data['userId']).first()
-        except:
-            return response('Auth Token is Invalid!',
-                            HttpStatus.UNAUTHORIZED)
-        # returns the current logged in users contex to the routes
-        return f(current_user, *args, **kwargs)
-
+        # token = None
+        # # jwt is passed in the request header
+        # if 'auth-token' in request.cookies:
+        #     token = request.cookies['auth-token']
+        # # return 401 if token is not passed
+        # if not token:
+        #     return response('Token is missing !!',
+        #                     HttpStatus.UNAUTHORIZED)
+        # try:
+        #     # decoding the payload to fetch the stored details
+        #     data = jwt.decode(
+        #         token, app.config['SECRET_KEY'], algorithms=["HS256"])
+        #     current_user = Users.query.filter_by(userId=data['userId']).first()
+        # except:
+        #     return response('Auth Token is Invalid!',
+        #                     HttpStatus.UNAUTHORIZED)
+        # # returns the current logged in users contex to the routes
+        # return f(current_user, *args, **kwargs)
+        pass
     return decorated
 
 # --------------------- HOME PAGE -------------------------
+
+
 @app.route("/")
 def home():
     return render_template('home.html')
-    
+
 # --------------------- DIVISIONS ENDPOINTS -------------------------
+
 
 @app.route("/divisions", methods=['GET'])
 def getDivisions():
