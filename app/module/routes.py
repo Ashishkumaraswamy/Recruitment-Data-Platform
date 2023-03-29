@@ -244,7 +244,7 @@ def deleteJob(current_user, jobId):
 
 
 @app.route("/jobs", methods=['GET'])
-@token_required
+# @token_required
 def getJobs(current_user):
     jobs = Jobs.query.all()
     return make_response(jobsSchema.jsonify(jobs), HttpStatus.OK)
