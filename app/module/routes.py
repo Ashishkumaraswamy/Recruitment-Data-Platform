@@ -109,7 +109,7 @@ def deleteDivision(dcode):
 
 
 @app.route("/users", methods=['GET'])
-@token_required
+# @token_required
 def getUsers(current_user):
     users = Users.query.all()
     return make_response(users_schema.jsonify(users), HttpStatus.OK)
@@ -161,7 +161,7 @@ def loginUser():
 
 
 @app.route("/users/update/<username>", methods=['PUT'])
-@token_required
+# @token_required
 def updateUser(current_user, username):
     user = Users.query.filter(Users.username == username).first()
     if not user:
@@ -187,7 +187,7 @@ def updateUser(current_user, username):
 
 
 @app.route("/users/delete/<username>", methods=['DELETE'])
-@token_required
+# @token_required
 def deleteUser(current_user, username):
     user = Users.query.filter(Users.username == username).first()
     if not user:
@@ -227,7 +227,7 @@ def addJobs():
 
 
 @app.route("/jobs/delete/<jobId>", methods=['DELETE'])
-@token_required
+# @token_required
 def deleteJob(current_user, jobId):
     job = Jobs.query.filter(Jobs.jobId == jobId).first()
     if not job:
@@ -251,7 +251,7 @@ def getJobs(current_user):
 
 
 @app.route("/jobs/update/<jobId>", methods=['PUT'])
-@token_required
+# @token_required
 def updateJobs(current_user, jobId):
     job = Jobs.query.filter(Jobs.jobId == jobId).first()
     if not job:
@@ -283,7 +283,7 @@ def updateJobs(current_user, jobId):
 
 
 @app.route("/jobs/<jobId>", methods=['GET'])
-@token_required
+# @token_required
 def getJobById(jobId, current_user):
     job = Jobs.query.filter(Jobs.jobId == jobId).first()
     return make_response(jobSchema.jsonify(job), HttpStatus.OK)
